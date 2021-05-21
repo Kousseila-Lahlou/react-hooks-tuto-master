@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  const router = useHistory();
   const classes = useStyles();
 
   return (
@@ -32,8 +34,10 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Movies
           </Typography>
-          <Button color="inherit">Register</Button>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => router.push('/register')} color="inherit">Register</Button>
+          <Button onClick={() => router.push('/login')} color="inherit">Login</Button>
+          <Button onClick={() => router.push('/addmovie')} color="inherit">+</Button>
+          
         </Toolbar>
       </AppBar>
     </div>
