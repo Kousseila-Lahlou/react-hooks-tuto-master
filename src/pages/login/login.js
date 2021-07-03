@@ -1,12 +1,16 @@
 import './login.css'
 import {Button, Card, TextField} from "@material-ui/core";
 import { useHistory } from 'react-router';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import API from '../../api/api';
+import AuthContext from "../../context/auth.context"
 
 
 const Login = () => {
+    const router = useHistory();
+    const auth = useContext(AuthContext)
+
     const [email, setEmail]=useState()
     const [password, setPassword]=useState()
     const send3 =()=>{
@@ -16,20 +20,29 @@ const Login = () => {
                     if (res.data.error) {
                         Swal.fire(res.data.msg, '', 'warning')
                     } else {
-                        Swal.fire('', '', 'success')
-                    .then(ok => {
+                        auth.login();
+                        localStorage.setItem('auth', 'true')
+                        Swal.fire('','', 'success')
+                        .then(ok => {
                         if (ok.isConfirmed) {
+                            console.log(auth.auth)
                             router.push('/movie')
                         }
                     })
                  }
                 })
                 .catch(err=>{
-                     Swal.fire('','','error')
+                    console.log (err);
+                     Swal.fire('uyuyu','','error')
                 })
        
     }
-    const router = useHistory ();
+        useEffect(() => {
+            console.log (auth.auth)
+            if (auth.auth) {
+                router.push ('/movie')
+            }
+        }, [])
     return (
         <div className={'register-container'}>
             <Card className={'register-card'}>

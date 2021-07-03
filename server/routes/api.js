@@ -8,7 +8,7 @@ router.post('/send', SEND_DATA)
 router.post('/add', ADD_MOVIE)
 router.get('/all', ALL_MOVIES)
 router.put('/edit', EDIT_MOVIE)
-router.delete('/delete', DELETE_MOVIE)
+router.post('/delete', DELETE_MOVIE)
 
 router.post('/register', REGISTER)
 router.get('/allusers', ALL_USERS)

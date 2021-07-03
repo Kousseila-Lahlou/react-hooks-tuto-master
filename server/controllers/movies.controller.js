@@ -1,4 +1,4 @@
-const Movie = require('../schema/movies')
+    const Movie = require('../schema/movies')
 
 module.exports.HELLO = (req, res) => {
     res.send('Hello word !')
@@ -71,4 +71,16 @@ module.exports.DELETE_MOVIE = (req, res) => {
         .catch(err => {
             res.send('NOt OK')
         })
+}
+module.exports.RESET_PWD = async (req, res) => {
+    const id = req.body._id;
+    const password = await bcrypt.hash(req.body.password, saltRounds);
+    User.findByIdAndUpdate(id, {
+        password: password
+    }).then(ok => {
+        res.send('OK')
+    }).catch(err => {
+        console.log(err)
+        res.send('ERROR')
+    })
 }
